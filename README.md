@@ -3,3 +3,5 @@
 This a website where you can discover world's top hypercars, and compare their performance and key capabilities. 
 
 Moreover, this is the second website I built as a practice to enhance my skills and showcase my capabilities to design state-of-the-art websites.
+
+Copyright (c) 2026 MD RAFSAN ELAHI. All Rights Reserved.Unauthorized copying or distribution of this file, via any medium, is strictly prohibited.
