@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Prestige | Premium Automotive Showroom</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            dark: '#0a0a0a',
+                            gray: '#111111',
+                            red: '#dc2626',
+                            accent: '#3b82f6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+        }
+
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .snap-x-mandatory {
+            scroll-snap-type: x mandatory;
+        }
+
+        .snap-center {
+            scroll-snap-align: center;
+        }
+
+        .glass-panel {
+            background: rgba(17,17,17,.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,.05);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6">
+        <div class="max-w-[1400px] mx-auto px-6 flex justify-between items-center">
+            <h1 class="text-2xl font-black tracking-[0.2em]">
+                APEX <span class="text-gray-500 font-light">PRESTIGE</span>
+            </h1>
+
+            <div class="hidden md:flex gap-8 uppercase text-xs tracking-[0.2em] text-gray-400">
+                <a href="#collection">Collection</a>
+                <a href="#compare">Telemetry</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="relative h-screen overflow-hidden flex items-center justify-center">
+
+        <img
+            src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2500&auto=format&fit=crop"
+            class="absolute inset-0 w-full h-full object-cover opacity-40"
+        >
+
+        <div class="absolute inset-0 bg-black/60"></div>
+
+        <div class="relative z-10 text-center px-4">
+            <p class="uppercase tracking-[0.4em] text-brand-red text-xs mb-4">
+                THE DIGITAL SHOWROOM
+            </p>
+
+            <h1 class="text-6xl md:text-9xl font-black uppercase leading-none">
+                Performance
+                <br>
+                <span class="text-gray-400">
+                    Without Limits
+                </span>
+            </h1>
+        </div>
+    </header>
+
+    <!-- COLLECTION -->
+    <section id="collection" class="py-24 max-w-[1400px] mx-auto px-6 reveal">
+
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-5xl font-black uppercase mb-2">
+                    The Collection
+                </h2>
+
+                <p class="text-gray-400">
+                    Swipe sideways to explore.
+                </p>
+            </div>
+
+            <div id="filters" class="flex gap-2 flex-wrap"></div>
+        </div>
+
+        <div id="car-grid"
+            class="flex gap-6 overflow-x-auto hide-scroll snap-x-mandatory pb-6">
+        </div>
+
+    </section>
+
+    <!-- COMPARISON -->
+    <section id="compare" class="py-24 bg-black reveal">
+
+        <div class="max-w-[1400px] mx-auto px-6">
+
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black uppercase">
+                    Head To Head
+                </h2>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 bg-brand-gray p-8 rounded-2xl border border-white/5">
+
+                <!-- LEFT -->
+                <div class="space-y-6">
+                    <select id="comp-select-1"
+                        class="w-full bg-black border border-white/10 p-4 rounded text-white">
+                    </select>
+
+                    <div class="h-56 rounded-xl overflow-hidden relative">
+                        <img id="comp-img-1" class="w-full h-full object-cover">
+
+                        <div class="absolute bottom-4 left-4">
+                            <h3 id="comp-name-1"
+                                class="text-2xl font-bold uppercase">
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATS -->
+                <div class="space-y-8 py-8">
+
+                    <div>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span id="comp-val1-hp"></span>
+                            <span>Horsepower</span>
+                            <span id="comp-val2-hp"></span>
+                        </div>
+
+                        <div class="flex gap-2 h-2">
+                            <div class="flex-1 bg-gray-800">
+                                <div id="bar1-hp"
+                                    class="h-full bg-red-600">
+                                </div>
+                            </div>
+
+                            <div class="flex-1 bg-gray-800">
+                                <div id="bar2-hp"
+                                    class="h-full bg-blue-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-2 text-sm">
+                            <span id="comp-val1-spd"></span>
+                            <span>Top Speed</span>
+                            <span id="comp-val2-spd"></span>
+                        </div>
+
+                        <div class="flex gap-2 h-2">
+                            <div class="flex-1 bg-gray-800">
+                                <div id="bar1-spd"
+                                    class="h-full bg-red-600">
+                                </div>
+                            </div>
+
+                            <div class="flex-1 bg-gray-800">
+                                <div id="bar2-spd"
+                                    class="h-full bg-blue-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT -->
+                <div class="space-y-6">
+                    <select id="comp-select-2"
+                        class="w-full bg-black border border-white/10 p-4 rounded text-white">
+                    </select>
+
+                    <div class="h-56 rounded-xl overflow-hidden relative">
+                        <img id="comp-img-2"
+                            class="w-full h-full object-cover">
+
+                        <div class="absolute bottom-4 right-4 text-right">
+                            <h3 id="comp-name-2"
+                                class="text-2xl font-bold uppercase">
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+        // ===== FIXED CAR IMAGES =====
+
+        const CARS = [
+
+            {
+                id: 1,
+                brand: "Porsche",
+                model: "911 GT3 RS",
+                price: "$241,300",
+                hp: 518,
+                topSpeed: 296,
+                category: "Track",
+
+                image:
+                "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=1000&auto=format&fit=crop&q=80"
+            },
+
+            {
+                id: 2,
+                brand: "BMW",
+                model: "M4 CSL",
+                price: "$139,900",
+                hp: 543,
+                topSpeed: 307,
+                category: "Daily",
+
+                image:
+                "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=1000&auto=format&fit=crop&q=80"
+            },
+
+            {
+                id: 3,
+                brand: "Ferrari",
+                model: "SF90 Stradale",
+                price: "$524,814",
+                hp: 986,
+                topSpeed: 340,
+                category: "Hypercar",
+
+                image:
+                "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1000&auto=format&fit=crop&q=80"
+            },
+
+            {
+                id: 4,
+                brand: "Lamborghini",
+                model: "Revuelto",
+                price: "$608,358",
+                hp: 1001,
+                topSpeed: 350,
+                category: "Hypercar",
+
+                image:
+                "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=1000&auto=format&fit=crop&q=80"
+            },
+
+            {
+                id: 5,
+                brand: "McLaren",
+                model: "765LT",
+                price: "$382,500",
+                hp: 755,
+                topSpeed: 330,
+                category: "Track",
+
+                image:
+                "https://images.unsplash.com/photo-1664713907576-1c00104ca1ba?q=80&w=1527&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            },
+
+            {
+                id: 6,
+                brand: "Nissan",
+                model: "GT-R Nismo",
+                price: "$220,990",
+                hp: 600,
+                topSpeed: 330,
+                category: "JDM",
+
+                image:
+                "https://images.unsplash.com/photo-1606222168088-9acd5c2e43a3?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            }
+        ];
+
+        const CATEGORIES = [
+            "All",
+            "Track",
+            "Daily",
+            "Hypercar",
+            "JDM"
+        ];
+
+        let currentFilter = "All";
+
+        // NAVBAR SCROLL
+        window.addEventListener('scroll', () => {
+
+            const nav = document.getElementById('navbar');
+
+            if(window.scrollY > 50){
+
+                nav.classList.add(
+                    'bg-black/80',
+                    'backdrop-blur-md'
+                );
+
+            } else {
+
+                nav.classList.remove(
+                    'bg-black/80',
+                    'backdrop-blur-md'
+                );
+            }
+        });
+
+        // FILTERS
+        const filtersContainer =
+            document.getElementById('filters');
+
+        function renderFilters(){
+
+            filtersContainer.innerHTML =
+                CATEGORIES.map(cat => `
+
+                    <button
+                        onclick="setFilter('${cat}')"
+                        class="px-5 py-2 border rounded-full uppercase text-xs tracking-widest transition
+                        ${
+                            currentFilter === cat
+                            ? 'bg-white text-black border-white'
+                            : 'border-white/10 text-gray-400 hover:text-white'
+                        }">
+
+                        ${cat}
+
+                    </button>
+
+                `).join('');
+        }
+
+        // GRID
+        const gridContainer =
+            document.getElementById('car-grid');
+
+        function renderGrid(){
+
+            const filtered =
+                currentFilter === "All"
+                ? CARS
+                : CARS.filter(c =>
+                    c.category === currentFilter
+                );
+
+            gridContainer.innerHTML =
+                filtered.map(car => `
+
+                    <div
+                        class="min-w-[85vw] md:min-w-[400px]
+                        snap-center bg-[#111]
+                        rounded-2xl overflow-hidden
+                        border border-white/5">
+
+                        <div class="h-72 overflow-hidden">
+
+                            <img
+                                src="${car.image}"
+                                class="w-full h-full object-cover hover:scale-105 transition duration-700"
+                            >
+
+                        </div>
+
+                        <div class="p-6">
+
+                            <div class="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">
+                                ${car.brand}
+                            </div>
+
+                            <h3 class="text-3xl font-black uppercase mb-2">
+                                ${car.model}
+                            </h3>
+
+                            <p class="text-red-500 font-bold mb-6">
+                                ${car.price}
+                            </p>
+
+                            <div class="grid grid-cols-2 gap-4">
+
+                                <div>
+                                    <div class="text-gray-500 text-xs uppercase">
+                                        Horsepower
+                                    </div>
+
+                                    <div class="font-bold">
+                                        ${car.hp} HP
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="text-gray-500 text-xs uppercase">
+                                        Top Speed
+                                    </div>
+
+                                    <div class="font-bold">
+                                        ${car.topSpeed} km/h
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `).join('');
+        }
+
+        function setFilter(cat){
+
+            currentFilter = cat;
+
+            renderFilters();
+
+            renderGrid();
+        }
+
+        // COMPARISON
+        const MAX_VALS = {
+            hp: 1100,
+            spd: 400
+        };
+
+        function initComparison(){
+
+            const s1 =
+                document.getElementById('comp-select-1');
+
+            const s2 =
+                document.getElementById('comp-select-2');
+
+            CARS.forEach(car => {
+
+                s1.add(
+                    new Option(
+                        `${car.brand} ${car.model}`,
+                        car.id
+                    )
+                );
+
+                s2.add(
+                    new Option(
+                        `${car.brand} ${car.model}`,
+                        car.id
+                    )
+                );
+            });
+
+            s1.value = CARS[0].id;
+            s2.value = CARS[4].id;
+
+            s1.addEventListener(
+                'change',
+                updateComparison
+            );
+
+            s2.addEventListener(
+                'change',
+                updateComparison
+            );
+
+            updateComparison();
+        }
+
+        function updateComparison(){
+
+            const c1 =
+                CARS.find(c =>
+                    c.id ==
+                    document.getElementById('comp-select-1').value
+                );
+
+            const c2 =
+                CARS.find(c =>
+                    c.id ==
+                    document.getElementById('comp-select-2').value
+                );
+
+            document.getElementById('comp-img-1').src =
+                c1.image;
+
+            document.getElementById('comp-img-2').src =
+                c2.image;
+
+            document.getElementById('comp-name-1').innerText =
+                c1.model;
+
+            document.getElementById('comp-name-2').innerText =
+                c2.model;
+
+            document.getElementById('comp-val1-hp').innerText =
+                c1.hp;
+
+            document.getElementById('comp-val2-hp').innerText =
+                c2.hp;
+
+            document.getElementById('comp-val1-spd').innerText =
+                c1.topSpeed;
+
+            document.getElementById('comp-val2-spd').innerText =
+                c2.topSpeed;
+
+            document.getElementById('bar1-hp').style.width =
+                `${(c1.hp / MAX_VALS.hp) * 100}%`;
+
+            document.getElementById('bar2-hp').style.width =
+                `${(c2.hp / MAX_VALS.hp) * 100}%`;
+
+            document.getElementById('bar1-spd').style.width =
+                `${(c1.topSpeed / MAX_VALS.spd) * 100}%`;
+
+            document.getElementById('bar2-spd').style.width =
+                `${(c2.topSpeed / MAX_VALS.spd) * 100}%`;
+        }
+
+        // SCROLL REVEAL
+        function initReveal(){
+
+            const observer =
+                new IntersectionObserver(entries => {
+
+                    entries.forEach(entry => {
+
+                        if(entry.isIntersecting){
+
+                            entry.target.classList.add('active');
+                        }
+                    });
+
+                }, {
+                    threshold: 0.1
+                });
+
+            document.querySelectorAll('.reveal')
+                .forEach(el => observer.observe(el));
+        }
+
+        // INIT
+        window.onload = () => {
+
+            renderFilters();
+
+            renderGrid();
+
+            initComparison();
+
+            initReveal();
+        }
+
+    </script>
+
+</body>
+</html>
