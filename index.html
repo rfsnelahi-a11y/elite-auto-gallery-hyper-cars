@@ -94,7 +94,7 @@
         </div>
     </nav>
 
-    <!-- HERO -->
+    
     <header class="relative h-screen overflow-hidden flex items-center justify-center">
 
         <img
@@ -119,7 +119,7 @@
         </div>
     </header>
 
-    <!-- COLLECTION -->
+    
     <section id="collection" class="py-24 max-w-[1400px] mx-auto px-6 reveal">
 
         <div class="flex justify-between items-end mb-12">
@@ -142,7 +142,7 @@
 
     </section>
 
-    <!-- COMPARISON -->
+    
     <section id="compare" class="py-24 bg-black reveal">
 
         <div class="max-w-[1400px] mx-auto px-6">
@@ -155,7 +155,7 @@
 
             <div class="grid lg:grid-cols-3 gap-8 bg-brand-gray p-8 rounded-2xl border border-white/5">
 
-                <!-- LEFT -->
+               
                 <div class="space-y-6">
                     <select id="comp-select-1"
                         class="w-full bg-black border border-white/10 p-4 rounded text-white">
@@ -172,7 +172,7 @@
                     </div>
                 </div>
 
-                <!-- STATS -->
+                
                 <div class="space-y-8 py-8">
 
                     <div>
@@ -221,7 +221,7 @@
 
                 </div>
 
-                <!-- RIGHT -->
+                
                 <div class="space-y-6">
                     <select id="comp-select-2"
                         class="w-full bg-black border border-white/10 p-4 rounded text-white">
@@ -245,7 +245,7 @@
 
     <script>
 
-        // ===== FIXED CAR IMAGES =====
+        
 
         const CARS = [
 
@@ -338,7 +338,7 @@
 
         let currentFilter = "All";
 
-        // NAVBAR SCROLL
+        
         window.addEventListener('scroll', () => {
 
             const nav = document.getElementById('navbar');
@@ -359,7 +359,7 @@
             }
         });
 
-        // FILTERS
+        
         const filtersContainer =
             document.getElementById('filters');
 
@@ -384,7 +384,7 @@
                 `).join('');
         }
 
-        // GRID
+        
         const gridContainer =
             document.getElementById('car-grid');
 
@@ -567,7 +567,7 @@
                 `${(c2.topSpeed / MAX_VALS.spd) * 100}%`;
         }
 
-        // SCROLL REVEAL
+        
         function initReveal(){
 
             const observer =
@@ -589,7 +589,7 @@
                 .forEach(el => observer.observe(el));
         }
 
-        // INIT
+        
         window.onload = () => {
 
             renderFilters();
